@@ -1,0 +1,52 @@
+@model BeFit.Models.SessionExercise
+
+@{
+    ViewData["Title"] = "Usuń ćwiczenie";
+}
+
+<h1>Usuń ćwiczenie</h1>
+
+<h3>Czy na pewno chcesz usunąć to ćwiczenie?</h3>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Sesja treningowa
+        </dt>
+        <dd class="col-sm-9">
+            @Model.TrainingSession?.StartDateTime.ToString("dd.MM.yyyy HH:mm")
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ExerciseType)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.ExerciseType?.Name
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Weight kg
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Sets)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Sets
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Reps)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Reps
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Usuń" class="btn btn-danger" />
+        <a asp-controller="TrainingSessions" asp-action="Details" asp-route-id="@Model.TrainingSessionId" class="btn btn-secondary">Anuluj</a>
+    </form>
+</div>
+

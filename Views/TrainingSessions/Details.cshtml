@@ -1,0 +1,77 @@
+@model BeFit.Models.TrainingSession
+
+@{
+    ViewData["Title"] = "Szczegóły sesji treningowej";
+}
+
+<h1>Szczegóły sesji treningowej</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.StartDateTime)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.StartDateTime)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.EndDateTime)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.EndDateTime)
+        </dd>
+        <dt class="col-sm-3">
+            Czas trwania
+        </dt>
+        <dd class="col-sm-9">
+            @{
+                var duration = Model.EndDateTime - Model.StartDateTime;
+                @($"{(int)duration.TotalHours}h {duration.Minutes}min")
+            }
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+    </dl>
+</div>
+
+<h4>Wykonane ćwiczenia</h4>
+@if (Model.SessionExercises != null && Model.SessionExercises.Any())
+{
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>Ćwiczenie</th>
+                <th>Obciążenie (kg)</th>
+                <th>Serie</th>
+                <th>Powtórzenia</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var exercise in Model.SessionExercises)
+            {
+                <tr>
+                    <td>@exercise.ExerciseType?.Name</td>
+                    <td>@exercise.Weight</td>
+                    <td>@exercise.Sets</td>
+                    <td>@exercise.Reps</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">Brak ćwiczeń w tej sesji.</p>
+}
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Edytuj</a>
+    <a asp-controller="SessionExercises" asp-action="Create" asp-route-sessionId="@Model?.Id" class="btn btn-success">Dodaj ćwiczenie</a>
+    <a asp-action="Index" class="btn btn-secondary">Powrót do listy</a>
+</div>
+

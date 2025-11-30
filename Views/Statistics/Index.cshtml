@@ -1,0 +1,79 @@
+@model BeFit.Models.ViewModels.UserStatisticsViewModel
+
+@{
+    ViewData["Title"] = "Moje statystyki";
+}
+
+<h1>Moje statystyki</h1>
+
+<div class="alert alert-info">
+    <strong>Okres:</strong> @Model.FromDate.ToString("dd.MM.yyyy") - @Model.ToDate.ToString("dd.MM.yyyy") (ostatnie 4 tygodnie)
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Sesje treningowe</h5>
+                <p class="card-text display-4">@Model.TotalSessions</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Wykonanych ćwiczeń</h5>
+                <p class="card-text display-4">@Model.TotalExercises</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Różnych typów ćwiczeń</h5>
+                <p class="card-text display-4">@Model.ExerciseStats.Count</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Statystyki według typu ćwiczenia</h3>
+
+@if (!Model.ExerciseStats.Any())
+{
+    <div class="alert alert-warning">
+        Brak danych z ostatnich 4 tygodni. <a asp-controller="TrainingSessions" asp-action="Create">Dodaj swoją pierwszą sesję treningową!</a>
+    </div>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Ćwiczenie</th>
+                <th class="text-center">Ile razy wykonane</th>
+                <th class="text-center">Łącznie powtórzeń</th>
+                <th class="text-center">Średnie obciążenie (kg)</th>
+                <th class="text-center">Maks. obciążenie (kg)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stat in Model.ExerciseStats)
+            {
+                <tr>
+                    <td><strong>@stat.ExerciseName</strong></td>
+                    <td class="text-center">@stat.TimesPerformed</td>
+                    <td class="text-center">@stat.TotalReps</td>
+                    <td class="text-center">@stat.AverageWeight</td>
+                    <td class="text-center">@stat.MaxWeight</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="mt-4">
+    <a asp-controller="TrainingSessions" asp-action="Index" class="btn btn-primary">Moje sesje</a>
+    <a asp-controller="SessionExercises" asp-action="Index" class="btn btn-secondary">Wszystkie ćwiczenia</a>
+</div>
+

@@ -1,0 +1,60 @@
+@model BeFit.Models.SessionExercise
+
+@{
+    ViewData["Title"] = "Szczegóły ćwiczenia";
+}
+
+<h1>Szczegóły ćwiczenia</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Sesja treningowa
+        </dt>
+        <dd class="col-sm-9">
+            @Model.TrainingSession?.StartDateTime.ToString("dd.MM.yyyy HH:mm") - @Model.TrainingSession?.EndDateTime.ToString("HH:mm")
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ExerciseType)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.ExerciseType?.Name
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Weight kg
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Sets)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Sets
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Reps)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Reps
+        </dd>
+        <dt class="col-sm-3">
+            Łącznie powtórzeń
+        </dt>
+        <dd class="col-sm-9">
+            @(Model.Sets * Model.Reps)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Notes
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Edytuj</a>
+    <a asp-controller="TrainingSessions" asp-action="Details" asp-route-id="@Model?.TrainingSessionId" class="btn btn-secondary">Powrót do sesji</a>
+</div>
+

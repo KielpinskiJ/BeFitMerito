@@ -1,0 +1,41 @@
+@model BeFit.Models.TrainingSession
+
+@{
+    ViewData["Title"] = "Usuń sesję treningową";
+}
+
+<h1>Usuń sesję treningową</h1>
+
+<h3>Czy na pewno chcesz usunąć tę sesję treningową?</h3>
+<p class="text-danger">Uwaga: Usunięcie sesji spowoduje również usunięcie wszystkich powiązanych ćwiczeń!</p>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.StartDateTime)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.StartDateTime)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.EndDateTime)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.EndDateTime)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Usuń" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+    </form>
+</div>
+

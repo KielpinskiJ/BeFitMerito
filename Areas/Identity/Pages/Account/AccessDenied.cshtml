@@ -1,0 +1,13 @@
+@page
+@model AccessDeniedModel
+
+@{
+    ViewData["Title"] = "Brak dostępu";
+}
+
+<div class="text-center">
+    <h1 class="text-danger">Brak dostępu</h1>
+    <p class="lead">Nie masz uprawnień do wyświetlenia tej strony.</p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Wróć na stronę główną</a>
+</div>
+

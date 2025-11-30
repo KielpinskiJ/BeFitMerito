@@ -1,0 +1,68 @@
+@model IEnumerable<BeFit.Models.TrainingSession>
+
+@{
+    ViewData["Title"] = "Moje sesje treningowe";
+}
+
+<h1>Moje sesje treningowe</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Dodaj nową sesję</a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Nie masz jeszcze żadnych sesji treningowych. Kliknij przycisk powyżej, aby dodać pierwszą sesję.
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDateTime)
+                </th>
+                <th>
+                    Czas trwania
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notes)
+                </th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model)
+    {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDateTime)
+                </td>
+                <td>
+                    @{
+                        var duration = item.EndDateTime - item.StartDateTime;
+                        @($"{(int)duration.TotalHours}h {duration.Minutes}min")
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Szczegóły</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edytuj</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Usuń</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+}
+

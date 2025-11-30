@@ -1,8 +1,61 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Strona główna";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Witaj w BeFit!</h1>
+    <p class="lead">Twoja aplikacja do śledzenia treningów i postępów.</p>
 </div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Typy ćwiczeń</h5>
+                <p class="card-text">Przeglądaj dostępne typy ćwiczeń. Administratorzy mogą dodawać nowe.</p>
+                <a asp-controller="ExerciseTypes" asp-action="Index" class="btn btn-primary">Zobacz ćwiczenia</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Sesje treningowe</h5>
+                <p class="card-text">Rejestruj swoje sesje treningowe i śledź postępy.</p>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-controller="TrainingSessions" asp-action="Index" class="btn btn-primary">Moje sesje</a>
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-primary">Zaloguj się</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Statystyki</h5>
+                <p class="card-text">Analizuj swoje wyniki z ostatnich 4 tygodni.</p>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-controller="Statistics" asp-action="Index" class="btn btn-primary">Zobacz statystyki</a>
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-primary">Zarejestruj się</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (User.Identity?.IsAuthenticated != true)
+{
+    <div class="mt-5 text-center">
+        <h4>Nie masz jeszcze konta?</h4>
+        <p>Zarejestruj się i zacznij śledzić swoje treningi!</p>
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-success btn-lg">Zarejestruj się za darmo</a>
+    </div>
+}

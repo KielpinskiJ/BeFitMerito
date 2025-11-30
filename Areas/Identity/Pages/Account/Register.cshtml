@@ -1,0 +1,66 @@
+@page
+@model RegisterModel
+
+@{
+    ViewData["Title"] = "Rejestracja";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Utwórz konto</h4>
+            </div>
+            <div class="card-body">
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="nazwa@example.com" />
+                        <label asp-for="Input.Email">Email</label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="hasło" />
+                        <label asp-for="Input.Password">Hasło</label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="powtórz hasło" />
+                        <label asp-for="Input.ConfirmPassword">Potwierdź hasło</label>
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="alert alert-info small mb-3">
+                        <strong>Wymagania hasła:</strong>
+                        <ul class="mb-0 ps-3">
+                            <li>Minimum 6 znaków</li>
+                            <li>Wielka i mała litera</li>
+                            <li>Cyfra</li>
+                            <li>Znak specjalny</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button id="registerSubmit" type="submit" class="btn btn-success btn-lg">Zarejestruj się</button>
+                    </div>
+                </form>
+                
+                <hr class="my-4" />
+                
+                <div class="text-center">
+                    <p class="mb-0">
+                        Masz już konto? <a asp-page="./Login">Zaloguj się</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
